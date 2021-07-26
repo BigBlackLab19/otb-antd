@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { TimePicker, Row, Col } from "antd";
 import { getDisabledHours, getDisabledMinutes } from "../util/TimeUtil";
+import { getTotalTime } from "../util/TotalTimeUtil";
 import styled from "styled-components";
 // import moment from "moment";
 
@@ -18,6 +19,9 @@ function TimerInput() {
     setEndTime(time);
     console.log("End Time: " + time);
   }
+
+  const totalTimeInMinutes = getTotalTime(startTime, endTime);
+  console.log("totalTimeInMinutes: " + totalTimeInMinutes);
 
   return (
     <>
