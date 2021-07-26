@@ -1,22 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Card, Row, Col, Input, Select } from "antd";
 import styled from "styled-components";
+import TaskDisplay from "./TaskDisplay";
 
 const { Option } = Select;
 
-function Task() {
-  const [titleChange, setTitleChange] = useState("");
-  //   const [minutesChange, setMinutesChange] = useState("");
+function Task({
+  task,
+  titleChange,
+  minutesChange,
+  handleMinutesChange,
+  handleTaskTitleChange,
+}) {
+  const { createdAt } = task;
 
-  function handleTaskTitleChange(event) {
-    setTitleChange(event.target.value);
-    console.log("taskTitle: " + event.target.value);
+  if (createdAt) {
+    return <TaskDisplay task={task} />;
   }
-
-  //   function handleMinutesChange(event) {
-  //     setMinutesChange(event.target.value);
-  //     console.log("minutes: " + minutesChange);
-  //   }
 
   return (
     <ParentContainer>
@@ -31,7 +31,11 @@ function Task() {
           </Col>
           <SelectMinutesColumn span={12}>
             <span>
-              <Select defaultValue="25">
+              <Select
+                defaultValue="25"
+                value={minutesChange}
+                onChange={handleMinutesChange}
+              >
                 <Option value="25">25</Option>
                 <Option value="30">30</Option>
                 <Option value="35">35</Option>
