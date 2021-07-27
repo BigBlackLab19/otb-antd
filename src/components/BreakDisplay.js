@@ -1,5 +1,6 @@
 import React from "react";
-import { Card, Row, Col } from "antd";
+import { Card, Row, Col, Button } from "antd";
+import { DeleteFilled } from "@ant-design/icons";
 import styled from "styled-components";
 
 function BreakDisplay(props) {
@@ -10,10 +11,15 @@ function BreakDisplay(props) {
       <CardContainer>
         <Row>
           <Column span={12}>{props.breakType}</Column>
-          <SelectMinutesColumn span={12}>
+          <SelectMinutesColumn span={10}>
             <breakOption />
             <MinutesLabel>{duration}</MinutesLabel>
           </SelectMinutesColumn>
+          <Col>
+            <DeleteButton>
+              <DeleteFilled />
+            </DeleteButton>
+          </Col>
         </Row>
       </CardContainer>
     </ParentContainer>
@@ -45,6 +51,12 @@ const SelectMinutesColumn = styled(Col)`
 
 const MinutesLabel = styled.span`
   padding-left: 0.5em;
+`;
+
+const DeleteButton = styled(Button)`
+  border-color: black;
+  color: black;
+  background-color: transparent;
 `;
 
 export default BreakDisplay;
