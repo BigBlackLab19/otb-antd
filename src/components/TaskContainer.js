@@ -118,7 +118,7 @@ function TaskContainer(props) {
           title={
             <Row>
               <Column span={12}>Schedule:</Column>
-              <Column span={12}>{timeInput}</Column>
+              <Column span={10}>{timeInput}</Column>
             </Row>
           }
           type="inner"

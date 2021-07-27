@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Row, Col } from "antd";
+import { Card, Row, Col, Button } from "antd";
 import styled from "styled-components";
 
 function TaskDisplay({ task }) {
@@ -10,7 +10,7 @@ function TaskDisplay({ task }) {
       <CardContainer>
         <Row>
           <Column span={12}>{title}</Column>
-          <SelectMinutesColumn span={12}>
+          <SelectMinutesColumn span={10}>
             <breakOption />
             <MinutesLabel> {duration} minutes</MinutesLabel>
           </SelectMinutesColumn>

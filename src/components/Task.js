@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Card, Row, Col, Input, Select } from "antd";
+
 import styled from "styled-components";
 import TaskDisplay from "./TaskDisplay";
 
@@ -22,7 +23,7 @@ function Task({
     <ParentContainer>
       <CardContainer>
         <RowContainer>
-          <Col span={12}>
+          <Col span={10}>
             <Input
               placeholder="Task Title"
               value={titleChange}
