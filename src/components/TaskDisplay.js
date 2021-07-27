@@ -1,5 +1,6 @@
 import React from "react";
 import { Card, Row, Col, Button } from "antd";
+import { DeleteFilled } from "@ant-design/icons";
 import styled from "styled-components";
 
 function TaskDisplay({ task }) {
@@ -14,6 +15,11 @@ function TaskDisplay({ task }) {
             <breakOption />
             <MinutesLabel> {duration} minutes</MinutesLabel>
           </SelectMinutesColumn>
+          <Col>
+            <DeleteButton>
+              <DeleteFilled />
+            </DeleteButton>
+          </Col>
         </Row>
       </CardContainer>
     </ParentContainer>
@@ -45,6 +51,12 @@ const SelectMinutesColumn = styled(Col)`
 
 const MinutesLabel = styled.span`
   padding-left: 0.5em;
+`;
+
+const DeleteButton = styled(Button)`
+  border-color: black;
+  color: black;
+  background-color: transparent;
 `;
 
 export default TaskDisplay;
