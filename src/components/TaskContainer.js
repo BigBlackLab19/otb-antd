@@ -23,6 +23,8 @@ function TaskContainer(props) {
   const [taskAdded, setTaskAdded] = useState(false);
   const [taskList, setTaskList] = useState([]); //submit for play button
 
+  console.log("Total Schedule Time is: ", totalScheduleTime);
+
   function deleteListItem() {
     setTotalTasksTime(totalTasksTime - taskList[taskList.length - 1].duration);
 
