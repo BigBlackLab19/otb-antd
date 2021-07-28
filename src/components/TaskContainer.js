@@ -26,6 +26,11 @@ function TaskContainer(props) {
     setTaskList(updatedList);
     setChangedAddBreakButton(false);
     setShowBreakButton(false);
+
+    if (updatedList.length !== 0) {
+      setTitleChange(taskList[updatedList.length - 1].title);
+      setMinutesChange(taskList[updatedList.length - 1].duration);
+    }
   }
 
   function handleChangedTimeInput() {
@@ -44,6 +49,7 @@ function TaskContainer(props) {
     };
     setTaskList([...taskList, task]);
     setTitleChange("");
+    setMinutesChange(25);
   }
 
   function handleChangedAddBreakButton() {
@@ -57,7 +63,6 @@ function TaskContainer(props) {
     };
     taskList.splice(taskIndex, 1, updatedTask);
     console.log("updated", taskList);
-    setMinutesChange(25);
     setShowBreakButton(true);
   }
 
