@@ -2,25 +2,27 @@ import React from "react";
 import { Card, Row, Col, Button } from "antd";
 import styled from "styled-components";
 
-function BreakOption(props) {
+function BreakOption({ setChangedBreakDisplay }) {
+  function handleOnClickShortBreak() {
+    setChangedBreakDisplay("Short Break");
+  }
+
+  function handleOnClickLongBreak() {
+    setChangedBreakDisplay("Long Break");
+  }
+
   return (
     <ParentContainer>
       <CardContainer>
         <Row>
           <Column span={11}>
-            <BreakButton
-              block
-              onClick={() => props.setChangedBreakDisplay("Short Break")}
-            >
+            <BreakButton block onClick={handleOnClickShortBreak}>
               Short Break
             </BreakButton>
           </Column>
           <Column span={2}>OR</Column>
           <Column span={11}>
-            <BreakButton
-              block
-              onClick={() => props.setChangedBreakDisplay("Long Break")}
-            >
+            <BreakButton block onClick={handleOnClickLongBreak}>
               Long Break
             </BreakButton>
           </Column>
