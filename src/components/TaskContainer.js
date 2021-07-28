@@ -23,7 +23,10 @@ function TaskContainer(props) {
   const [taskList, setTaskList] = useState([]); //submit for play button
 
   function deleteListItem() {
+    setTotalTasksTime(totalTasksTime - taskList[taskList.length - 1].duration);
+
     const updatedList = taskList.filter((task, i) => taskList.length - 1 !== i);
+
     setTaskList(updatedList);
     setChangedAddBreakButton(false);
     setShowBreakButton(false);
@@ -33,11 +36,6 @@ function TaskContainer(props) {
       setMinutesChange(taskList[updatedList.length - 1].duration);
     }
   }
-
-  // function handleChangedTotalTasksTime(currentTaskTime) {
-  //   setTotalTasksTime(totalTasksTime + currentTaskTime);
-  //   console.log("totalTasksTime: " + totalTasksTime);
-  // }
 
   function handleChangedTimeInput() {
     setChangedTimeInput(true);
