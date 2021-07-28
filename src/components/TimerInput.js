@@ -5,7 +5,7 @@ import { getTotalTime } from "../util/TotalTimeUtil";
 import styled from "styled-components";
 // import moment from "moment";
 
-function TimerInput() {
+function TimerInput({ handleGetTotalScheduleTime }) {
   const format = "HH:mm";
   const [startTime, setStartTime] = useState(null);
   const [endTime, setEndTime] = useState(null);
@@ -13,15 +13,14 @@ function TimerInput() {
   function handleStartTime(time) {
     setStartTime(time);
     console.log("Start Time: " + time);
+    handleGetTotalScheduleTime(getTotalTime(time, endTime));
   }
 
   function handleEndTime(time) {
     setEndTime(time);
     console.log("End Time: " + time);
+    handleGetTotalScheduleTime(getTotalTime(startTime, time));
   }
-
-  const totalTimeInMinutes = getTotalTime(startTime, endTime);
-  console.log("totalTimeInMinutes: " + totalTimeInMinutes);
 
   return (
     <>

@@ -19,7 +19,8 @@ function TaskContainer(props) {
   const [minutesChange, setMinutesChange] = useState(25);
   const [titleChange, setTitleChange] = useState("");
   const [totalTasksTime, setTotalTasksTime] = useState(0);
-
+  const [totalScheduleTime, setTotalScheduleTime] = useState();
+  const [taskAdded, setTaskAdded] = useState(false);
   const [taskList, setTaskList] = useState([]); //submit for play button
 
   function deleteListItem() {
@@ -35,6 +36,19 @@ function TaskContainer(props) {
       setTitleChange(taskList[updatedList.length - 1].title);
       setMinutesChange(taskList[updatedList.length - 1].duration);
     }
+
+    if (updatedList.length !== 0) {
+      if (
+        taskList[updatedList.length - 1].title ===
+        updatedList[updatedList.length - 1].title
+      ) {
+        setTaskAdded(true);
+      }
+    }
+  }
+
+  function handleGetTotalScheduleTime(minutes) {
+    setTotalScheduleTime(minutes);
   }
 
   function handleChangedTimeInput() {
@@ -54,6 +68,7 @@ function TaskContainer(props) {
     setTaskList([...taskList, task]);
     setTitleChange("");
     setMinutesChange(25);
+    setTaskAdded(false);
   }
 
   function handleChangedAddBreakButton() {
@@ -69,7 +84,10 @@ function TaskContainer(props) {
     taskList.splice(taskIndex, 1, updatedTask);
     console.log("updated", taskList);
     setShowBreakButton(true);
-    setTotalTasksTime((prevState) => prevState + duration);
+
+    if (taskAdded === false) {
+      setTotalTasksTime(totalTasksTime + duration);
+    }
   }
 
   function handleTaskTitleChange(event) {
@@ -94,7 +112,7 @@ function TaskContainer(props) {
     };
     setTaskList([...taskList, task]);
 
-    setTotalTasksTime((prevState) => prevState + breakMinutes);
+    setTotalTasksTime(totalTasksTime + breakMinutes);
   }
 
   const list = taskList.map((task, i) => {
@@ -122,7 +140,7 @@ function TaskContainer(props) {
     );
   });
   const timeInput = changedTimeInput ? (
-    <TimerInput />
+    <TimerInput handleGetTotalScheduleTime={handleGetTotalScheduleTime} />
   ) : (
     <SetBlockTimeButton setChangedTimeInput={handleChangedTimeInput} />
   );
