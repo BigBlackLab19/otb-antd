@@ -3,23 +3,25 @@ import { Card, Row, Col, Button } from "antd";
 import { DeleteFilled } from "@ant-design/icons";
 import styled from "styled-components";
 
-function BreakDisplay(props) {
-  const duration =
-    props.breakType === "Short Break" ? "5 minutes" : "15 minutes";
+function BreakDisplay({ task, handleOnDelete }) {
+  const { isLast, breakType } = task;
+  const deleteButton = isLast && (
+    <DeleteButton onClick={handleOnDelete}>
+      <DeleteFilled />
+    </DeleteButton>
+  );
+
+  const duration = breakType === "Short Break" ? "5 minutes" : "15 minutes";
   return (
     <ParentContainer>
       <CardContainer>
         <Row>
-          <Column span={12}>{props.breakType}</Column>
+          <Column span={12}>{breakType}</Column>
           <SelectMinutesColumn span={10}>
             <breakOption />
             <MinutesLabel>{duration}</MinutesLabel>
           </SelectMinutesColumn>
-          <Col>
-            <DeleteButton>
-              <DeleteFilled />
-            </DeleteButton>
-          </Col>
+          <Col>{deleteButton}</Col>
         </Row>
       </CardContainer>
     </ParentContainer>

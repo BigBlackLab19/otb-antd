@@ -21,6 +21,13 @@ function TaskContainer(props) {
 
   const [taskList, setTaskList] = useState([]); //submit for play button
 
+  function deleteListItem() {
+    const updatedList = taskList.filter((task, i) => taskList.length - 1 !== i);
+    setTaskList(updatedList);
+    setChangedAddBreakButton(false);
+    setShowBreakButton(false);
+  }
+
   function handleChangedTimeInput() {
     setChangedTimeInput(true);
   }
@@ -33,8 +40,10 @@ function TaskContainer(props) {
       duration: "",
       type: "task",
       breakType: "",
+      isLast: false,
     };
     setTaskList([...taskList, task]);
+    setTitleChange("");
   }
 
   function handleChangedAddBreakButton() {
@@ -48,7 +57,6 @@ function TaskContainer(props) {
     };
     taskList.splice(taskIndex, 1, updatedTask);
     console.log("updated", taskList);
-    setTitleChange("");
     setMinutesChange(25);
     setShowBreakButton(true);
   }
@@ -70,12 +78,24 @@ function TaskContainer(props) {
       duration: "",
       type: "break",
       breakType,
+      isLast: false,
     };
     setTaskList([...taskList, task]);
   }
-  const list = taskList.map((task) =>
-    task.type === "task" ? (
+  const list = taskList.map((task, i) => {
+    console.log("this is i: " + i);
+    console.log("list length: " + taskList.length);
+    if (taskList.length - 1 === i) {
+      task.isLast = true;
+    } else {
+      task.isLast = false;
+    }
+    console.log(task.isLast);
+
+    return task.type === "task" ? (
       <Task
+        handleOnDelete={deleteListItem}
+        key={i}
         handleTaskTitleChange={handleTaskTitleChange}
         handleMinutesChange={handleMinutesChange}
         titleChange={titleChange}
@@ -83,33 +103,37 @@ function TaskContainer(props) {
         task={task}
       />
     ) : (
-      <BreakDisplay breakType={task.breakType} />
-    )
-  );
-
+      <BreakDisplay task={task} handleOnDelete={deleteListItem} />
+    );
+  });
   const timeInput = changedTimeInput ? (
     <TimerInput />
   ) : (
     <SetBlockTimeButton setChangedTimeInput={handleChangedTimeInput} />
   );
 
-  const addBreak = showBreakButton ? (
-    <BreakOption setChangedBreakDisplay={handleChangedBreakDisplay} />
-  ) : (
-    <AddBreakButton setChangedAddBreakButton={handleChangedAddBreakButton} />
-  );
+  function addBreak() {
+    return showBreakButton ? (
+      <BreakOption setChangedBreakDisplay={handleChangedBreakDisplay} />
+    ) : (
+      <AddBreakButton setChangedAddBreakButton={handleChangedAddBreakButton} />
+    );
+  }
 
-  const displayButton = changedAddBreakButton ? (
-    addBreak
-  ) : (
-    <AddTaskButton setChangedAddTaskButton={handleChangedAddTaskButton} />
-  );
+  function displayButton() {
+    if (taskList.length === 0) {
+      return (
+        <AddTaskButton setChangedAddTaskButton={handleChangedAddTaskButton} />
+      );
+    }
 
-  // const taskDisplay = showBreakButton ? (
-  //   <TaskDisplay titleChange={titleChange} minutesChange={minutesChange} />
-  // ) : (
-  //   <div />
-  // );
+    if (last(taskList).type === "break") {
+      return (
+        <AddTaskButton setChangedAddTaskButton={handleChangedAddTaskButton} />
+      );
+    }
+    return addBreak();
+  }
 
   return (
     <>
@@ -124,7 +148,7 @@ function TaskContainer(props) {
           type="inner"
         >
           {list}
-          {displayButton}
+          {displayButton()}
           {/* {taskDisplay} */}
         </CardContainer>
       </ParentContainer>

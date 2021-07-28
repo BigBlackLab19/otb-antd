@@ -3,8 +3,14 @@ import { Card, Row, Col, Button } from "antd";
 import { DeleteFilled } from "@ant-design/icons";
 import styled from "styled-components";
 
-function TaskDisplay({ task }) {
-  const { title, duration } = task;
+function TaskDisplay({ task, handleOnDelete }) {
+  const { title, duration, isLast } = task;
+
+  const deleteButton = isLast && (
+    <DeleteButton onClick={handleOnDelete}>
+      <DeleteFilled />
+    </DeleteButton>
+  );
 
   return (
     <ParentContainer>
@@ -15,11 +21,7 @@ function TaskDisplay({ task }) {
             <breakOption />
             <MinutesLabel> {duration} minutes</MinutesLabel>
           </SelectMinutesColumn>
-          <Col>
-            <DeleteButton>
-              <DeleteFilled />
-            </DeleteButton>
-          </Col>
+          <Col>{deleteButton}</Col>
         </Row>
       </CardContainer>
     </ParentContainer>

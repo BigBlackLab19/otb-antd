@@ -12,11 +12,12 @@ function Task({
   minutesChange,
   handleMinutesChange,
   handleTaskTitleChange,
+  handleOnDelete,
 }) {
   const { createdAt } = task;
 
   if (createdAt) {
-    return <TaskDisplay task={task} />;
+    return <TaskDisplay task={task} handleOnDelete={handleOnDelete} />;
   }
 
   return (
