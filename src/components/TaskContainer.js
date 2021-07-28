@@ -18,6 +18,7 @@ function TaskContainer(props) {
   const [changedAddBreakButton, setChangedAddBreakButton] = useState(false);
   const [minutesChange, setMinutesChange] = useState(25);
   const [titleChange, setTitleChange] = useState("");
+  const [totalTasksTime, setTotalTasksTime] = useState(0);
 
   const [taskList, setTaskList] = useState([]); //submit for play button
 
@@ -32,6 +33,11 @@ function TaskContainer(props) {
       setMinutesChange(taskList[updatedList.length - 1].duration);
     }
   }
+
+  // function handleChangedTotalTasksTime(currentTaskTime) {
+  //   setTotalTasksTime(totalTasksTime + currentTaskTime);
+  //   console.log("totalTasksTime: " + totalTasksTime);
+  // }
 
   function handleChangedTimeInput() {
     setChangedTimeInput(true);
@@ -55,15 +61,17 @@ function TaskContainer(props) {
   function handleChangedAddBreakButton() {
     const lastTask = last(taskList);
     const taskIndex = taskList.indexOf((task) => lastTask.id === task.id);
+    const duration = parseInt(minutesChange);
     const updatedTask = {
       ...lastTask,
       title: titleChange,
-      duration: minutesChange,
+      duration,
       createdAt: new Date(),
     };
     taskList.splice(taskIndex, 1, updatedTask);
     console.log("updated", taskList);
     setShowBreakButton(true);
+    setTotalTasksTime((prevState) => prevState + duration);
   }
 
   function handleTaskTitleChange(event) {
@@ -77,16 +85,20 @@ function TaskContainer(props) {
   function handleChangedBreakDisplay(breakType) {
     setShowBreakButton(false);
     setChangedAddBreakButton(false);
+    const breakMinutes = breakType === "Short Break" ? 5 : 15;
     const task = {
       id: uuid(),
-      title: "",
-      duration: "",
+      title: breakType,
+      duration: breakMinutes,
       type: "break",
       breakType,
       isLast: false,
     };
     setTaskList([...taskList, task]);
+
+    setTotalTasksTime((prevState) => prevState + breakMinutes);
   }
+
   const list = taskList.map((task, i) => {
     console.log("this is i: " + i);
     console.log("list length: " + taskList.length);
@@ -152,6 +164,7 @@ function TaskContainer(props) {
           }
           type="inner"
         >
+          {"totalTasksTime: " + totalTasksTime}
           {list}
           {displayButton()}
           {/* {taskDisplay} */}
