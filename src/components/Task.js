@@ -13,9 +13,24 @@ function Task({
   handleMinutesChange,
   handleTaskTitleChange,
   handleOnDelete,
+  isTimeValid,
+  totalScheduleTime,
+  totalTasksTime,
 }) {
   const { createdAt } = task;
 
+  const timeValues = [
+    5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90,
+  ];
+
+  const timeOptionsDisplay = timeValues.map((value) => {
+    if (totalScheduleTime > value) {
+      if (totalScheduleTime - totalTasksTime > value) {
+        return <Option value={value}>{value}</Option>;
+      }
+    }
+    return <></>;
+  });
   if (createdAt) {
     return <TaskDisplay task={task} handleOnDelete={handleOnDelete} />;
   }
@@ -38,13 +53,7 @@ function Task({
                 value={minutesChange}
                 onChange={handleMinutesChange}
               >
-                <Option value="25">25</Option>
-                <Option value="30">30</Option>
-                <Option value="35">35</Option>
-                <Option value="45">45</Option>
-                <Option value="60">60</Option>
-                <Option value="75">75</Option>
-                <Option value="90">90</Option>
+                {timeOptionsDisplay}
               </Select>
             </span>
             <MinutesLabel>minutes</MinutesLabel>

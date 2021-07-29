@@ -22,6 +22,7 @@ function TaskContainer(props) {
   const [totalScheduleTime, setTotalScheduleTime] = useState();
   const [taskAdded, setTaskAdded] = useState(false);
   const [taskList, setTaskList] = useState([]); //submit for play button
+  const [isTimeValid, setIsTimeValid] = useState(false);
 
   console.log("Total Schedule Time is: ", totalScheduleTime);
 
@@ -98,6 +99,10 @@ function TaskContainer(props) {
 
   function handleMinutesChange(event) {
     setMinutesChange(event);
+    if (totalScheduleTime < 90) {
+      setIsTimeValid(true);
+      console.log("ahsuhgiuhasfifw");
+    }
   }
 
   function handleChangedBreakDisplay(breakType) {
@@ -136,6 +141,8 @@ function TaskContainer(props) {
         titleChange={titleChange}
         minutesChange={minutesChange}
         task={task}
+        totalScheduleTime={totalScheduleTime}
+        totalTasksTime={totalTasksTime}
       />
     ) : (
       <BreakDisplay task={task} handleOnDelete={deleteListItem} />
