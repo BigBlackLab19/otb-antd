@@ -19,9 +19,7 @@ function Task({
 }) {
   const { createdAt } = task;
 
-  const timeValues = [
-    5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90,
-  ];
+  const timeValues = [25, 30, 35, 45, 50, 60, 75, 90];
 
   const timeOptionsDisplay = timeValues.map((value) => {
     if (totalScheduleTime > value) {
