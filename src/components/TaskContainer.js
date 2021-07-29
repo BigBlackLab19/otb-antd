@@ -8,6 +8,7 @@ import BreakOption from "./BreakOption";
 import BreakDisplay from "./BreakDisplay";
 import TaskDisplay from "./TaskDisplay";
 import Task from "./Task";
+import TaskAlert from "./TaskAlert";
 import styled from "styled-components";
 import last from "lodash.last";
 import { v4 as uuid } from "uuid";
@@ -197,6 +198,7 @@ function TaskContainer(props) {
           {"totalTasksTime: " + totalTasksTime}
           {list}
           {displayButton()}
+          <TaskAlert />
           {/* {taskDisplay} */}
         </CardContainer>
       </ParentContainer>
