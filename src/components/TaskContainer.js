@@ -58,7 +58,7 @@ function TaskContainer(props) {
   }
 
   function handleChangedAddTaskButton() {
-    if (totalScheduleTime - totalTasksTime <= 25) {
+    if (totalScheduleTime - totalTasksTime < 25) {
       setShowBreakButton(false);
     } else {
       setChangedAddBreakButton(true);
@@ -126,7 +126,7 @@ function TaskContainer(props) {
   }
 
   const list = taskList.map((task, i) => {
-    totalScheduleTime - totalTasksTime <= 25
+    totalScheduleTime - totalTasksTime < 25
       ? (task.isLast = true)
       : console.log("this is i: " + i);
     console.log("list length: " + taskList.length);
