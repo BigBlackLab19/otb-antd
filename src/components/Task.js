@@ -13,7 +13,6 @@ function Task({
   handleMinutesChange,
   handleTaskTitleChange,
   handleOnDelete,
-  isTimeValid,
   totalScheduleTime,
   totalTasksTime,
 }) {

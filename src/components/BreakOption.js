@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useState } from "react";
 import { Card, Row, Col, Button } from "antd";
 import styled from "styled-components";
 
@@ -11,21 +11,28 @@ function BreakOption({ setChangedBreakDisplay }) {
     setChangedBreakDisplay("Long Break");
   }
 
+  function displayShortBreak() {
+    return (
+      <BreakButton block onClick={handleOnClickShortBreak}>
+        Short Break
+      </BreakButton>
+    );
+  }
+
+  function displayLongBreak() {
+    return (
+      <BreakButton block onClick={handleOnClickLongBreak}>
+        Long Break
+      </BreakButton>
+    );
+  }
   return (
     <ParentContainer>
       <CardContainer>
         <Row>
-          <Column span={11}>
-            <BreakButton block onClick={handleOnClickShortBreak}>
-              Short Break
-            </BreakButton>
-          </Column>
+          <Column span={11}>{displayShortBreak()}</Column>
           <Column span={2}>OR</Column>
-          <Column span={11}>
-            <BreakButton block onClick={handleOnClickLongBreak}>
-              Long Break
-            </BreakButton>
-          </Column>
+          <Column span={11}>{displayLongBreak()}</Column>
         </Row>
       </CardContainer>
     </ParentContainer>

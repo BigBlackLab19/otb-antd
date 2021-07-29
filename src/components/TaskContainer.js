@@ -22,7 +22,6 @@ function TaskContainer(props) {
   const [totalScheduleTime, setTotalScheduleTime] = useState();
   const [taskAdded, setTaskAdded] = useState(false);
   const [taskList, setTaskList] = useState([]); //submit for play button
-  const [isTimeValid, setIsTimeValid] = useState(false);
 
   console.log("Total Schedule Time is: ", totalScheduleTime);
 
@@ -59,22 +58,29 @@ function TaskContainer(props) {
   }
 
   function handleChangedAddTaskButton() {
-    setChangedAddBreakButton(true);
-    const task = {
-      id: uuid(),
-      title: "",
-      duration: "",
-      type: "task",
-      breakType: "",
-      isLast: false,
-    };
-    setTaskList([...taskList, task]);
-    setTitleChange("");
-    setMinutesChange(25);
-    setTaskAdded(false);
+    if (totalScheduleTime - totalTasksTime <= 25) {
+      setShowBreakButton(false);
+    } else {
+      setChangedAddBreakButton(true);
+      const task = {
+        id: uuid(),
+        title: "",
+        duration: "",
+        type: "task",
+        breakType: "",
+        isLast: false,
+      };
+      setTaskList([...taskList, task]);
+      setTitleChange("");
+      setMinutesChange(25);
+      setTaskAdded(false);
+    }
   }
 
   function handleChangedAddBreakButton() {
+    // if (totalScheduleTime - totalTasksTime < 25 && totalTasksTime !== 0) {
+    //   // setShowBreakButton(false);
+    // } else {
     const lastTask = last(taskList);
     const taskIndex = taskList.indexOf((task) => lastTask.id === task.id);
     const duration = parseInt(minutesChange);
@@ -91,6 +97,7 @@ function TaskContainer(props) {
     if (taskAdded === false) {
       setTotalTasksTime(totalTasksTime + duration);
     }
+    // }
   }
 
   function handleTaskTitleChange(event) {
@@ -99,10 +106,6 @@ function TaskContainer(props) {
 
   function handleMinutesChange(event) {
     setMinutesChange(event);
-    if (totalScheduleTime < 90) {
-      setIsTimeValid(true);
-      console.log("ahsuhgiuhasfifw");
-    }
   }
 
   function handleChangedBreakDisplay(breakType) {
@@ -123,7 +126,9 @@ function TaskContainer(props) {
   }
 
   const list = taskList.map((task, i) => {
-    console.log("this is i: " + i);
+    totalScheduleTime - totalTasksTime <= 25
+      ? (task.isLast = true)
+      : console.log("this is i: " + i);
     console.log("list length: " + taskList.length);
     if (taskList.length - 1 === i) {
       task.isLast = true;
