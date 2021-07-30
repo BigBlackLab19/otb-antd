@@ -21,8 +21,10 @@ function TaskContainer(props) {
   const [titleChange, setTitleChange] = useState("");
   const [totalTasksTime, setTotalTasksTime] = useState(0);
   const [totalScheduleTime, setTotalScheduleTime] = useState();
-  const [taskAdded, setTaskAdded] = useState(false);
+  const [isTaskAdded, setTaskAdded] = useState(false);
   const [taskList, setTaskList] = useState([]); //submit for play button
+  const [isShortDisabled, setIsShortDisabled] = useState(false);
+  const [isLongDisabled, setIsLongDisabled] = useState(false);
 
   console.log("Total Schedule Time is: ", totalScheduleTime);
 
@@ -59,29 +61,31 @@ function TaskContainer(props) {
   }
 
   function handleChangedAddTaskButton() {
-    if (totalScheduleTime - totalTasksTime < 25) {
-      setShowBreakButton(false);
-    } else {
-      setChangedAddBreakButton(true);
-      const task = {
-        id: uuid(),
-        title: "",
-        duration: "",
-        type: "task",
-        breakType: "",
-        isLast: false,
-      };
-      setTaskList([...taskList, task]);
-      setTitleChange("");
-      setMinutesChange(25);
-      setTaskAdded(false);
-    }
+    setChangedAddBreakButton(true);
+    const task = {
+      id: uuid(),
+      title: "",
+      duration: "",
+      type: "task",
+      breakType: "",
+      isLast: false,
+    };
+    setTaskList([...taskList, task]);
+    setTitleChange("");
+    setMinutesChange(25);
+    setTaskAdded(false);
   }
+  useEffect(() => {
+    const remainingTime = totalScheduleTime - totalTasksTime;
+    if (remainingTime < 5) {
+      setIsShortDisabled(true);
+    }
+    if (remainingTime < 15) {
+      setIsLongDisabled(true);
+    }
+  }, [totalTasksTime]);
 
   function handleChangedAddBreakButton() {
-    // if (totalScheduleTime - totalTasksTime < 25 && totalTasksTime !== 0) {
-    //   // setShowBreakButton(false);
-    // } else {
     const lastTask = last(taskList);
     const taskIndex = taskList.indexOf((task) => lastTask.id === task.id);
     const duration = parseInt(minutesChange);
@@ -95,10 +99,9 @@ function TaskContainer(props) {
     console.log("updated", taskList);
     setShowBreakButton(true);
 
-    if (taskAdded === false) {
+    if (isTaskAdded === false) {
       setTotalTasksTime(totalTasksTime + duration);
     }
-    // }
   }
 
   function handleTaskTitleChange(event) {
@@ -112,6 +115,7 @@ function TaskContainer(props) {
   function handleChangedBreakDisplay(breakType) {
     setShowBreakButton(false);
     setChangedAddBreakButton(false);
+
     const breakMinutes = breakType === "Short Break" ? 5 : 15;
     const task = {
       id: uuid(),
@@ -162,7 +166,14 @@ function TaskContainer(props) {
 
   function addBreak() {
     return showBreakButton ? (
-      <BreakOption setChangedBreakDisplay={handleChangedBreakDisplay} />
+      <BreakOption
+        setChangedBreakDisplay={handleChangedBreakDisplay}
+        totalScheduleTime={totalScheduleTime}
+        totalTasksTime={totalTasksTime}
+        taskAlert={taskAlert()}
+        isShortDisabled={isShortDisabled}
+        isLongDisabled={isLongDisabled}
+      />
     ) : (
       <AddBreakButton setChangedAddBreakButton={handleChangedAddBreakButton} />
     );
@@ -170,17 +181,37 @@ function TaskContainer(props) {
 
   function displayButton() {
     if (taskList.length === 0) {
+      if (totalScheduleTime < 25) {
+        return taskAlert();
+      }
+      // if (totalScheduleTime - totalTasksTime < 25) {
+      //   setShowBreakButton(false);
+      //   return <taskAlert />;
+      // }
+
+      return (
+        <AddTaskButton setChangedAddTaskButton={handleChangedAddTaskButton} />
+      );
+    }
+    if (totalScheduleTime - totalTasksTime < 5) {
+      return taskAlert();
+    }
+
+    if (last(taskList).type === "break") {
+      if (totalScheduleTime - totalTasksTime < 25) {
+        return taskAlert();
+      }
       return (
         <AddTaskButton setChangedAddTaskButton={handleChangedAddTaskButton} />
       );
     }
 
-    if (last(taskList).type === "break") {
-      return (
-        <AddTaskButton setChangedAddTaskButton={handleChangedAddTaskButton} />
-      );
-    }
     return addBreak();
+  }
+
+  function taskAlert() {
+    console.log("alert");
+    return <TaskAlert />;
   }
 
   return (
@@ -198,7 +229,7 @@ function TaskContainer(props) {
           {"totalTasksTime: " + totalTasksTime}
           {list}
           {displayButton()}
-          <TaskAlert />
+
           {/* {taskDisplay} */}
         </CardContainer>
       </ParentContainer>
