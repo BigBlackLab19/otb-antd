@@ -1,10 +1,15 @@
-import React from "react";
-import { Card, Row, Col, Button } from "antd";
-import { DeleteFilled } from "@ant-design/icons";
-import styled from "styled-components";
+import { DeleteFilled } from '@ant-design/icons';
+import {
+  Card, Row, Col, Button,
+} from 'antd';
+import last from 'lodash.last';
+import React from 'react';
+import styled from 'styled-components';
 
-function TaskDisplay({ task, handleOnDelete }) {
-  const { title, duration, isLast } = task;
+function TaskDisplay(props) {
+  const { task, handleOnDelete, taskList } = props;
+  const { title, duration } = task;
+  const isLast = last(taskList).id === task.id;
 
   const deleteButton = isLast && (
     <DeleteButton onClick={handleOnDelete}>
@@ -19,7 +24,12 @@ function TaskDisplay({ task, handleOnDelete }) {
           <Column span={12}>{title}</Column>
           <SelectMinutesColumn span={10}>
             <breakOption />
-            <MinutesLabel> {duration} minutes</MinutesLabel>
+            <MinutesLabel>
+              {' '}
+              {duration}
+              {' '}
+              minutes
+            </MinutesLabel>
           </SelectMinutesColumn>
           <Col>{deleteButton}</Col>
         </Row>
@@ -56,8 +66,8 @@ const MinutesLabel = styled.span`
 `;
 
 const DeleteButton = styled(Button)`
-  border-color: black;
-  color: black;
+  border-color: #000;
+  color: #000;
   background-color: transparent;
 `;
 

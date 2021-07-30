@@ -1,7 +1,9 @@
-import React from "react";
-import Timer from "./Timer";
-import { Card } from "antd";
-import styled from "styled-components";
+import { Card } from 'antd';
+import React from 'react';
+
+import styled from 'styled-components';
+
+import Timer from './Timer';
 
 function TimerContainer() {
   return (

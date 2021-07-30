@@ -1,16 +1,17 @@
-import { useState } from "react";
-import Header from "./components/Header";
-import TimerContainer from "./components/TimerContainer";
-import PlayPauseButton from "./components/PlayPauseButton";
-import TaskContainer from "./components/TaskContainer";
-import InterruptModal from "./components/InterruptModal";
+import React, { useState } from 'react';
 
+import Header from './components/Header';
+import InterruptModal from './components/InterruptModal';
+import PlayPauseButton from './components/PlayPauseButton';
+import TaskContainer from './components/TaskContainer';
+import TimerContainer from './components/TimerContainer';
 
 function App() {
   const [isOpenInterruptModal, setOpenInterruptModal] = useState(false);
   function toggleInterruptModal() {
     setOpenInterruptModal(!isOpenInterruptModal);
   }
+
   return (
     <>
       <InterruptModal

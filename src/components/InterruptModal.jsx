@@ -1,12 +1,14 @@
-import React, { useState } from "react";
-import { Button, Modal, Form, Input } from "antd";
-import styled from "styled-components";
+import {
+  Button, Modal, Input,
+} from 'antd';
+import React, { useState } from 'react';
+import styled from 'styled-components';
 
 const { TextArea } = Input;
 
-const InterruptModal = (props) => {
+function InterruptModal(props) {
   const { isOpen, toggle } = props;
-  const [reasoning, setReasoning] = useState("");
+  const [reasoning, setReasoning] = useState('');
 
   function handleChangeReasoning(e) {
     setReasoning(e.target.value);
@@ -14,23 +16,23 @@ const InterruptModal = (props) => {
 
   return (
     <Modal
-      title="Current Task: {taskTitle} (Paused)"
-      visible={isOpen}
       closable={false}
       footer={null}
+      title="Current Task: {taskTitle} (Paused)"
+      visible={isOpen}
     >
       <TextArea
-        onChange={handleChangeReasoning}
         placeholder="You paused the timer. Tell us what happened."
+        onChange={handleChangeReasoning}
       />
       <SubmitButtonContainer>
-        <Button type="primary" onClick={toggle} disabled={!reasoning}>
+        <Button disabled={!reasoning} type="primary" onClick={toggle}>
           Submit
         </Button>
       </SubmitButtonContainer>
     </Modal>
   );
-};
+}
 
 export default InterruptModal;
 

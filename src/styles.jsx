@@ -1,11 +1,11 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
 
 *{padding: 0; margin: 0}
 
 ${
-  "" /* body {
+  '' /* body {
   margin: 0;
   font-family: "Arial Black", "Arial Bold", Gadget, sans-serif;
   -webkit-font-smoothing: antialiased;
