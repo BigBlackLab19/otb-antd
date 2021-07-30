@@ -1,17 +1,26 @@
-import React from "react";
-import { Card, Row, Col, Button } from "antd";
-import { DeleteFilled } from "@ant-design/icons";
-import styled from "styled-components";
+import { DeleteFilled } from '@ant-design/icons';
+import {
+  Card, Row, Col, Button,
+} from 'antd';
+import last from 'lodash.last';
+import React from 'react';
+import styled from 'styled-components';
 
-function BreakDisplay({ task, handleOnDelete }) {
-  const { isLast, breakType } = task;
+import { SHORT_BREAK, SHORT_BREAK_MINUTES, LONG_BREAK_MINUTES } from '../constants/common';
+
+function BreakDisplay(props) {
+  const { task, handleOnDelete, taskList } = props;
+  const { breakType } = task;
+  const isLast = last(taskList).id === task.id;
+
   const deleteButton = isLast && (
     <DeleteButton onClick={handleOnDelete}>
       <DeleteFilled />
     </DeleteButton>
   );
 
-  const duration = breakType === "Short Break" ? "5 minutes" : "15 minutes";
+  const duration = breakType === SHORT_BREAK ? SHORT_BREAK_MINUTES : LONG_BREAK_MINUTES;
+
   return (
     <ParentContainer>
       <CardContainer>
@@ -19,7 +28,11 @@ function BreakDisplay({ task, handleOnDelete }) {
           <Column span={12}>{breakType}</Column>
           <SelectMinutesColumn span={10}>
             <breakOption />
-            <MinutesLabel>{duration}</MinutesLabel>
+            <MinutesLabel>
+              {duration}
+              {' '}
+              minutes
+            </MinutesLabel>
           </SelectMinutesColumn>
           <Col>{deleteButton}</Col>
         </Row>
@@ -56,8 +69,8 @@ const MinutesLabel = styled.span`
 `;
 
 const DeleteButton = styled(Button)`
-  border-color: black;
-  color: black;
+  border-color: #000;
+  color: #000;
   background-color: transparent;
 `;
 

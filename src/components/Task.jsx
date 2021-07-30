@@ -1,22 +1,26 @@
-import React, { useState, useEffect } from "react";
-import { Card, Row, Col, Input, Select } from "antd";
+/* eslint-disable no-magic-numbers */
+import {
+  Card, Row, Col, Input, Select,
+} from 'antd';
+import React from 'react';
+import styled from 'styled-components';
 
-import styled from "styled-components";
-import TaskDisplay from "./TaskDisplay";
+import TaskDisplay from './TaskDisplay';
 
 const { Option } = Select;
 
-function Task({
-  task,
-  titleChange,
-  minutesChange,
-  handleMinutesChange,
-  handleTaskTitleChange,
-  handleOnDelete,
-  totalScheduleTime,
-  totalTasksTime,
-}) {
-  const { createdAt } = task;
+function Task(props) {
+  const {
+    handleMinutesChange,
+    handleOnDelete,
+    handleTaskTitleChange,
+    minutesChange,
+    task,
+    taskList,
+    titleChange,
+    totalScheduleTime,
+    totalTasksTime,
+  } = props;
 
   const timeValues = [25, 30, 35, 45, 50, 60, 75, 90];
 
@@ -26,10 +30,12 @@ function Task({
         return <Option value={value}>{value}</Option>;
       }
     }
-    return <></>;
+
+    return null;
   });
-  if (createdAt) {
-    return <TaskDisplay task={task} handleOnDelete={handleOnDelete} />;
+
+  if (task.createdAt) {
+    return <TaskDisplay handleOnDelete={handleOnDelete} task={task} taskList={taskList} />;
   }
 
   return (
@@ -44,15 +50,13 @@ function Task({
             />
           </Col>
           <SelectMinutesColumn span={12}>
-            <span>
-              <Select
-                defaultValue="25"
-                value={minutesChange}
-                onChange={handleMinutesChange}
-              >
-                {timeOptionsDisplay}
-              </Select>
-            </span>
+            <Select
+              defaultValue="25"
+              value={minutesChange}
+              onChange={handleMinutesChange}
+            >
+              {timeOptionsDisplay}
+            </Select>
             <MinutesLabel>minutes</MinutesLabel>
           </SelectMinutesColumn>
         </RowContainer>

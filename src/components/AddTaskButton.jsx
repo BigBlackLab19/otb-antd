@@ -1,17 +1,21 @@
-import React from "react";
-import { Button } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
-import styled from "styled-components";
+import { PlusOutlined } from '@ant-design/icons';
+import { Button } from 'antd';
+import React from 'react';
+import styled from 'styled-components';
 
-const AddTaskButton = (props) => {
+function AddTaskButton(props) {
+  const { setChangedAddTaskButton } = props;
+
   return (
     <ParentContainer>
-      <ButtonAddTask block onClick={props.setChangedAddTaskButton}>
-        Add Task <PlusOutlined />
+      <ButtonAddTask block onClick={setChangedAddTaskButton}>
+        Add Task
+        {' '}
+        <PlusOutlined />
       </ButtonAddTask>
     </ParentContainer>
   );
-};
+}
 
 const ParentContainer = styled.div`
   padding-bottom: 0.5em;
@@ -20,18 +24,18 @@ const ParentContainer = styled.div`
 const ButtonAddTask = styled(Button)`
   background-color: #b8e3fd;
   border-color: #b8e3fd;
-  color: black;
+  color: #000;
   height: 64px;
   width: 100%;
 
   :hover {
     background-color: #73c8fb;
-    color: black;
+    color: #000;
   }
 
   :focus {
     background-color: #73c8fb;
-    color: black;
+    color: #000;
   }
 `;
 

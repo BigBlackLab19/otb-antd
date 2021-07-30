@@ -1,29 +1,29 @@
 export function getDisabledHours(startTime) {
   if (!startTime) {
-    return;
+    return [];
   }
 
   const disabledHours = [];
   const startDate = new Date(startTime);
-  for (let i = 0; i < startDate.getHours(); i++) {
+  for (let i = 0; i < startDate.getHours(); i += 1) {
     disabledHours.push(i);
   }
-  console.log("Disabled Hours: " + disabledHours);
+
   return disabledHours;
 }
 
 export function getDisabledMinutes(startTime, selectedHours) {
   if (!startTime) {
-    return;
+    return [];
   }
 
   const disabledMinutes = [];
   const startDate = new Date(startTime);
   if (selectedHours === startDate.getHours()) {
-    for (let i = 0; i <= startDate.getMinutes(); i++) {
+    for (let i = 0; i <= startDate.getMinutes(); i += 1) {
       disabledMinutes.push(i);
     }
   }
-  console.log("Disabled Minutes: " + disabledMinutes);
+
   return disabledMinutes;
 }

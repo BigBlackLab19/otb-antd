@@ -1,10 +1,6 @@
-export function getTotalTime(startTime, endTime) {
-  if (!startTime) {
-    return;
-  }
-
-  if (!endTime) {
-    return;
+export default function getTotalTime(startTime, endTime) {
+  if (!startTime || !endTime) {
+    return 0;
   }
   const startDate = new Date(startTime);
   const endDate = new Date(endTime);
@@ -17,7 +13,5 @@ export function getTotalTime(startTime, endTime) {
   const endDateMinutes = endDate.getMinutes();
   const totalEndDateMinutes = endDateHours * 60 + endDateMinutes;
 
-  const difference = totalEndDateMinutes - totalStartDateMinutes;
-  const totalTime = difference;
-  return totalTime;
+  return totalEndDateMinutes - totalStartDateMinutes;
 }
