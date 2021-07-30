@@ -1,8 +1,20 @@
-import React from "react";
+import { React, useState } from "react";
 import { Card, Row, Col, Button } from "antd";
 import styled from "styled-components";
 
-function BreakOption(props) {
+function BreakOption({
+  setChangedBreakDisplay,
+  isShortDisabled,
+  isLongDisabled,
+}) {
+  function handleOnClickShortBreak() {
+    setChangedBreakDisplay("Short Break");
+  }
+
+  function handleOnClickLongBreak() {
+    setChangedBreakDisplay("Long Break");
+  }
+
   return (
     <ParentContainer>
       <CardContainer>
@@ -10,7 +22,8 @@ function BreakOption(props) {
           <Column span={11}>
             <BreakButton
               block
-              onClick={() => props.setChangedBreakDisplay("Short Break")}
+              disabled={isShortDisabled}
+              onClick={handleOnClickShortBreak}
             >
               Short Break
             </BreakButton>
@@ -19,7 +32,8 @@ function BreakOption(props) {
           <Column span={11}>
             <BreakButton
               block
-              onClick={() => props.setChangedBreakDisplay("Long Break")}
+              disabled={isLongDisabled}
+              onClick={handleOnClickLongBreak}
             >
               Long Break
             </BreakButton>
@@ -29,7 +43,6 @@ function BreakOption(props) {
     </ParentContainer>
   );
 }
-
 const ParentContainer = styled.div`
   padding-bottom: 0.5em;
 `;
@@ -51,15 +64,6 @@ const BreakButton = styled(Button)`
   background-color: transparent;
   color: black;
   border-color: black;
-
-  /* :hover {
-    background-color: #73c8fb;
-    color: black;
-  }
-
-  :focus {
-    background-color: #73c8fb;
-    color: black;
-  } */
 `;
+
 export default BreakOption;
