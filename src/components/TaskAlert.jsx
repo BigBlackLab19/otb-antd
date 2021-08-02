@@ -8,7 +8,7 @@ function TaskAlert() {
       showIcon
       description="You cannot add anymore tasks or breaks as it will exceed the amount of time you scheduled for your block."
       message="Cannot Add Anymore Tasks or Breaks"
-      type="info"
+      type="warning"
     />
   );
 }
