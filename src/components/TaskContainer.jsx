@@ -66,17 +66,11 @@ function TaskContainer(props) {
     setShowBreakButton(false);
 
     if (updatedList.length) {
-      const lastTask = last(taskList);
       const lastUpdatedTask = last(updatedList);
 
-      setTitleChange(lastTask.title ?? '');
-      setMinutesChange(lastTask.duration ?? 0);
-
-      if (lastTask?.title === lastUpdatedTask?.title) {
-        setTaskAdded(true);
-      } else {
-        setTaskAdded(false);
-      }
+      setTitleChange(lastUpdatedTask.title ?? '');
+      setMinutesChange(lastUpdatedTask.duration ?? 0);
+      setTaskAdded(true);
     }
   }
 
@@ -114,7 +108,6 @@ function TaskContainer(props) {
       duration,
       title: titleChange,
     };
-
     taskList.splice(taskIndex, 1, updatedTask);
     setShowBreakButton(true);
 
