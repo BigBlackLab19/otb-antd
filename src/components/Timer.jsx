@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import styled from "styled-components";
+import React, { useState } from 'react';
+import styled from 'styled-components';
 
 function Timer() {
   const [timerMinute, setTimerMinute] = useState(0);
@@ -7,11 +7,12 @@ function Timer() {
 
   function Time(number) {
     if (number === 0) {
-      return "00";
+      return '00';
     }
     if (number < 0) {
-      return "0" + number;
+      return `0${number}`;
     }
+
     return number;
   }
 

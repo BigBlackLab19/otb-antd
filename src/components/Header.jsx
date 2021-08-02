@@ -1,10 +1,12 @@
-import logo from "../static/otb-logo.png";
-import styled from "styled-components";
+import { React } from 'react';
+import styled from 'styled-components';
+
+import logo from '../static/otb-logo.png';
 
 function Header() {
   return (
     <Wrapper>
-      <Logo src={logo} alt="OnTheBlock" />
+      <Logo alt="On The Block Logo" src={logo} />
     </Wrapper>
   );
 }
