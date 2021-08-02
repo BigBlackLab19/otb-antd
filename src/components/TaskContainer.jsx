@@ -23,7 +23,7 @@ import TaskAlert from './TaskAlert';
 import TimerInput from './TimerInput';
 
 function TaskContainer(props) {
-  const { setIsPlayable } = props;
+  const { setIsPlayable, isRunning } = props;
   const [changedTimeInput, setChangedTimeInput] = useState(false);
   const [showBreakButton, setShowBreakButton] = useState(false);
   const [changedAddBreakButton, setChangedAddBreakButton] = useState(false);
@@ -196,6 +196,10 @@ function TaskContainer(props) {
 
     if (!taskList.length) {
       if (totalScheduleTime < DEFAULT_TASK_MINUTES) {
+        if (isRunning) {
+          return <></>;
+        }
+
         return <TaskAlert />;
       }
 
@@ -204,12 +208,18 @@ function TaskContainer(props) {
       );
     }
     if (totalScheduleTime - totalTasksTime < SHORT_BREAK_MINUTES) {
+      if (isRunning) {
+        return <></>;
+      }
       setIsPlayable(true);
 
       return <TaskAlert />;
     }
 
     if (last(taskList).type === TASK_TYPES.BREAK) {
+      if (isRunning) {
+        return <></>;
+      }
       if (totalScheduleTime - totalTasksTime < DEFAULT_TASK_MINUTES) {
         setIsPlayable(true);
 

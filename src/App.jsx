@@ -9,6 +9,7 @@ import TimerContainer from './components/TimerContainer';
 function App() {
   const [isOpenInterruptModal, setOpenInterruptModal] = useState(false);
   const [isPlayable, setIsPlayable] = useState(false);
+  const [isRunning, setIsRunning] = useState(false);
 
   function toggleInterruptModal() {
     setOpenInterruptModal(!isOpenInterruptModal);
@@ -22,8 +23,18 @@ function App() {
       />
       <Header />
       <TimerContainer />
-      <PlayPauseButton isPlayable={isPlayable} toggle={toggleInterruptModal} />
-      <TaskContainer setIsPlayable={setIsPlayable} />
+      <PlayPauseButton
+        isPlayable={isPlayable}
+        isRunning={isRunning}
+        setIsRunning={setIsRunning}
+        toggle={toggleInterruptModal}
+      />
+      <TaskContainer
+        isRunning={isRunning}
+        setIsPlayable={setIsPlayable}
+        setIsRunning={setIsRunning}
+        toggle={toggleInterruptModal}
+      />
     </>
   );
 }

@@ -4,8 +4,9 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 function PlayPauseButton(props) {
-  const { toggle, isPlayable } = props;
-  const [isRunning, setIsRunning] = useState(false);
+  const {
+    toggle, isPlayable, isRunning, setIsRunning,
+  } = props;
 
   function handlePlayClick() {
     setIsRunning(true);
