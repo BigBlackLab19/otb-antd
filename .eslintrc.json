@@ -217,7 +217,8 @@
         "react-hooks/rules-of-hooks": "off",
         "react-hooks/exhaustive-deps": "off",
         "react/prop-types": "off",
-        "sonarjs/cognitive-complexity": "off"
+        "sonarjs/cognitive-complexity": "off",
+        "linebreak-style": "off"
     }
 
 }
