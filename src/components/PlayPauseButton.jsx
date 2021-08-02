@@ -1,14 +1,15 @@
 import { PlayCircleOutlined, PauseCircleOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 function PlayPauseButton(props) {
   const {
-    toggle, isPlayable, isRunning, setIsRunning,
+    toggle, isPlayable, isRunning, setIsRunning, setIsPlayed,
   } = props;
 
   function handlePlayClick() {
+    setIsPlayed(true);
     setIsRunning(true);
   }
 

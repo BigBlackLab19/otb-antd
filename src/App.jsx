@@ -10,6 +10,7 @@ function App() {
   const [isOpenInterruptModal, setOpenInterruptModal] = useState(false);
   const [isPlayable, setIsPlayable] = useState(false);
   const [isRunning, setIsRunning] = useState(false);
+  const [isPlayed, setIsPlayed] = useState(false);
 
   function toggleInterruptModal() {
     setOpenInterruptModal(!isOpenInterruptModal);
@@ -25,11 +26,14 @@ function App() {
       <TimerContainer />
       <PlayPauseButton
         isPlayable={isPlayable}
+        isPlayed={isPlayed}
         isRunning={isRunning}
+        setIsPlayed={setIsPlayed}
         setIsRunning={setIsRunning}
         toggle={toggleInterruptModal}
       />
       <TaskContainer
+        isPlayed={isPlayed}
         isRunning={isRunning}
         setIsPlayable={setIsPlayable}
         setIsRunning={setIsRunning}

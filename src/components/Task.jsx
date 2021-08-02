@@ -14,7 +14,10 @@ function Task(props) {
     handleMinutesChange,
     handleOnDelete,
     handleTaskTitleChange,
+    isRunning,
+    isPlayed,
     minutesChange,
+    setIsPlayed,
     task,
     taskList,
     titleChange,
@@ -35,7 +38,16 @@ function Task(props) {
   });
 
   if (task.createdAt) {
-    return <TaskDisplay handleOnDelete={handleOnDelete} task={task} taskList={taskList} />;
+    return (
+      <TaskDisplay
+        handleOnDelete={handleOnDelete}
+        isPlayed={isPlayed}
+        isRunning={isRunning}
+        setIsPlayed={setIsPlayed}
+        task={task}
+        taskList={taskList}
+      />
+    );
   }
 
   return (

@@ -9,11 +9,13 @@ import styled from 'styled-components';
 import { SHORT_BREAK, SHORT_BREAK_MINUTES, LONG_BREAK_MINUTES } from '../constants/common';
 
 function BreakDisplay(props) {
-  const { task, handleOnDelete, taskList } = props;
+  const {
+    task, handleOnDelete, taskList, isPlayed,
+  } = props;
   const { breakType } = task;
   const isLast = last(taskList).id === task.id;
 
-  const deleteButton = isLast && (
+  const deleteButton = isLast && !isPlayed && (
     <DeleteButton onClick={handleOnDelete}>
       <DeleteFilled />
     </DeleteButton>

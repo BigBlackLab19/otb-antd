@@ -23,7 +23,9 @@ import TaskAlert from './TaskAlert';
 import TimerInput from './TimerInput';
 
 function TaskContainer(props) {
-  const { setIsPlayable, isRunning } = props;
+  const {
+    setIsPlayable, isRunning, isPlayed,
+  } = props;
   const [changedTimeInput, setChangedTimeInput] = useState(false);
   const [showBreakButton, setShowBreakButton] = useState(false);
   const [changedAddBreakButton, setChangedAddBreakButton] = useState(false);
@@ -152,6 +154,8 @@ function TaskContainer(props) {
       handleMinutesChange={handleMinutesChange}
       handleOnDelete={deleteListItem}
       handleTaskTitleChange={handleTaskTitleChange}
+      isPlayed={isPlayed}
+      isRunning={isRunning}
       minutesChange={minutesChange}
       task={task}
       taskList={taskList}
@@ -163,6 +167,7 @@ function TaskContainer(props) {
     <BreakDisplay
       key={task}
       handleOnDelete={deleteListItem}
+      isPlayed={isPlayed}
       task={task}
       taskList={taskList}
     />

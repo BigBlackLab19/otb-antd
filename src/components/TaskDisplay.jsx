@@ -7,11 +7,12 @@ import React from 'react';
 import styled from 'styled-components';
 
 function TaskDisplay(props) {
-  const { task, handleOnDelete, taskList } = props;
+  const {
+    task, handleOnDelete, taskList, isPlayed,
+  } = props;
   const { title, duration } = task;
   const isLast = last(taskList).id === task.id;
-
-  const deleteButton = isLast && (
+  const deleteButton = isLast && !isPlayed && (
     <DeleteButton onClick={handleOnDelete}>
       <DeleteFilled />
     </DeleteButton>
