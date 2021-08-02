@@ -16,12 +16,14 @@ import AddBreakButton from './AddBreakButton';
 import AddTaskButton from './AddTaskButton';
 import BreakDisplay from './BreakDisplay';
 import BreakOption from './BreakOption';
+import ScheduleAlert from './ScheduleAlert';
 import SetBlockTimeButton from './SetBlockTimeButton';
 import Task from './Task';
 import TaskAlert from './TaskAlert';
 import TimerInput from './TimerInput';
 
 function TaskContainer(props) {
+  const { setIsPlayable } = props;
   const [changedTimeInput, setChangedTimeInput] = useState(false);
   const [showBreakButton, setShowBreakButton] = useState(false);
   const [changedAddBreakButton, setChangedAddBreakButton] = useState(false);
@@ -50,6 +52,7 @@ function TaskContainer(props) {
   }, [totalTasksTime]);
 
   function deleteListItem() {
+    setIsPlayable(false);
     const currentTask = last(taskList);
     const newTotalTasksTime = totalTasksTime - currentTask.duration;
     setTotalTasksTime(newTotalTasksTime);
@@ -187,6 +190,10 @@ function TaskContainer(props) {
   }
 
   function displayButton() {
+    if (totalScheduleTime - totalTasksTime === 0 && taskList.length === 0) {
+      return <ScheduleAlert />;
+    }
+
     if (!taskList.length) {
       if (totalScheduleTime < DEFAULT_TASK_MINUTES) {
         return <TaskAlert />;
@@ -197,11 +204,15 @@ function TaskContainer(props) {
       );
     }
     if (totalScheduleTime - totalTasksTime < SHORT_BREAK_MINUTES) {
+      setIsPlayable(true);
+
       return <TaskAlert />;
     }
 
     if (last(taskList).type === TASK_TYPES.BREAK) {
       if (totalScheduleTime - totalTasksTime < DEFAULT_TASK_MINUTES) {
+        setIsPlayable(true);
+
         return <TaskAlert />;
       }
 

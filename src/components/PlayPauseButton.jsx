@@ -3,7 +3,8 @@ import { Button } from 'antd';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-function PlayPauseButton({ toggle }) {
+function PlayPauseButton(props) {
+  const { toggle, isPlayable } = props;
   const [isRunning, setIsRunning] = useState(false);
 
   function handlePlayClick() {
@@ -19,7 +20,7 @@ function PlayPauseButton({ toggle }) {
 
   return (
     <ParentContainer>
-      <PlayPauseBtn onClick={handler}>
+      <PlayPauseBtn disabled={!isPlayable} onClick={handler}>
         {icon}
       </PlayPauseBtn>
     </ParentContainer>
