@@ -1,16 +1,22 @@
-import { Card } from 'antd';
+import { Card, Row, Col } from 'antd';
 import React from 'react';
 
 import styled from 'styled-components';
 
 import Timer from './Timer';
 
-function TimerContainer() {
+function TimerContainer(props) {
+  const { headTitle } = props;
+
   return (
     <ParentContainer>
       <CardContainer>
         <Timer />
-        <h1>Task: </h1>
+        <h1>
+          Task:
+          {' '}
+          {headTitle}
+        </h1>
       </CardContainer>
     </ParentContainer>
   );
@@ -25,7 +31,7 @@ const ParentContainer = styled.div`
 `;
 
 const CardContainer = styled(Card)`
-  width: 80%;
+  width: 100%;
   background-color: #f7f8fc;
   display: flex;
   justify-content: center;

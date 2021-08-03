@@ -1,4 +1,5 @@
 import { Card, Row, Col } from 'antd';
+import { head } from 'lodash';
 import last from 'lodash.last';
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
@@ -24,7 +25,7 @@ import TimerInput from './TimerInput';
 
 function TaskContainer(props) {
   const {
-    setIsPlayable, isRunning, isPlayed,
+    setIsPlayable, isRunning, isPlayed, taskList, setTaskList, setHeadTitle,
   } = props;
   const [changedTimeInput, setChangedTimeInput] = useState(false);
   const [showBreakButton, setShowBreakButton] = useState(false);
@@ -34,7 +35,6 @@ function TaskContainer(props) {
   const [totalTasksTime, setTotalTasksTime] = useState(0);
   const [totalScheduleTime, setTotalScheduleTime] = useState(0);
   const [isTaskAdded, setTaskAdded] = useState(false);
-  const [taskList, setTaskList] = useState([]); // submit for play button
   const [isShortDisabled, setIsShortDisabled] = useState(false);
   const [isLongDisabled, setIsLongDisabled] = useState(false);
 
@@ -71,7 +71,7 @@ function TaskContainer(props) {
       setTitleChange(lastUpdatedTask.title ?? '');
       setMinutesChange(lastUpdatedTask.duration ?? 0);
       setTaskAdded(true);
-    }
+    } else { setHeadTitle(''); }
   }
 
   function handleGetTotalScheduleTime(minutes) {
@@ -215,6 +215,7 @@ function TaskContainer(props) {
     }
 
     if (last(taskList).type === TASK_TYPES.BREAK) {
+      setHeadTitle(head(taskList).title);
       if (isRunning) {
         return <></>;
       }
