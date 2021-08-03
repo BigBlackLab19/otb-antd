@@ -11,6 +11,7 @@ const { Option } = Select;
 
 function Task(props) {
   const {
+    currentTitle,
     handleMinutesChange,
     handleOnDelete,
     handleTaskTitleChange,
@@ -26,6 +27,11 @@ function Task(props) {
   } = props;
 
   const timeValues = [25, 30, 35, 45, 50, 60, 75, 90];
+  function handleCheck() {
+    if ((isRunning === true) && (currentTitle === task.title)) return true;
+
+    return false;
+  }
 
   const timeOptionsDisplay = timeValues.map((value) => {
     if (totalScheduleTime > value) {
@@ -40,6 +46,8 @@ function Task(props) {
   if (task.createdAt) {
     return (
       <TaskDisplay
+        currentTitle={currentTitle}
+        handleCheck={handleCheck}
         handleOnDelete={handleOnDelete}
         isPlayed={isPlayed}
         isRunning={isRunning}
@@ -52,7 +60,7 @@ function Task(props) {
 
   return (
     <ParentContainer>
-      <CardContainer>
+      <CardContainer handleCheck={handleCheck()}>
         <RowContainer>
           <Col span={10}>
             <Input
@@ -82,7 +90,9 @@ const ParentContainer = styled.div`
 `;
 
 const CardContainer = styled(Card)`
-  background-color: #73c8fb;
+  
+  background-color:${(props) => (props.handleCheck ? '#16a3f8' : '#73c8fb')};
+}; 
   border: none;
 `;
 

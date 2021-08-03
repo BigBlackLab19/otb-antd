@@ -12,7 +12,8 @@ function App() {
   const [isRunning, setIsRunning] = useState(false);
   const [isPlayed, setIsPlayed] = useState(false);
   const [taskList, setTaskList] = useState([]); // submit for play button
-  const [headTitle, setHeadTitle] = useState('');
+  const [currentTitle, setCurrentTitle] = useState('');
+  const [currentTask, setCurrentTask] = useState([]);
 
   function toggleInterruptModal() {
     setOpenInterruptModal(!isOpenInterruptModal);
@@ -25,7 +26,7 @@ function App() {
         toggle={toggleInterruptModal}
       />
       <Header />
-      <TimerContainer headTitle={headTitle} />
+      <TimerContainer currentTitle={currentTitle} />
       <PlayPauseButton
         isPlayable={isPlayable}
         isPlayed={isPlayed}
@@ -35,9 +36,11 @@ function App() {
         toggle={toggleInterruptModal}
       />
       <TaskContainer
+        currentTitle={currentTitle}
         isPlayed={isPlayed}
         isRunning={isRunning}
-        setHeadTitle={setHeadTitle}
+        setCurrentTask={setCurrentTask}
+        setCurrentTitle={setCurrentTitle}
         setIsPlayable={setIsPlayable}
         setIsRunning={setIsRunning}
         setTaskList={setTaskList}

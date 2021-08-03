@@ -25,7 +25,7 @@ import TimerInput from './TimerInput';
 
 function TaskContainer(props) {
   const {
-    setIsPlayable, isRunning, isPlayed, taskList, setTaskList, setHeadTitle,
+    setIsPlayable, currentTitle, isRunning, isPlayed, taskList, setTaskList, setCurrentTitle, setCurrentTask,
   } = props;
   const [changedTimeInput, setChangedTimeInput] = useState(false);
   const [showBreakButton, setShowBreakButton] = useState(false);
@@ -55,11 +55,11 @@ function TaskContainer(props) {
 
   function deleteListItem() {
     setIsPlayable(false);
-    const currentTask = last(taskList);
-    const newTotalTasksTime = totalTasksTime - currentTask.duration;
+    const currentLastTask = last(taskList);
+    const newTotalTasksTime = totalTasksTime - currentLastTask.duration;
     setTotalTasksTime(newTotalTasksTime);
 
-    const updatedList = taskList.filter((task) => task.id !== currentTask.id);
+    const updatedList = taskList.filter((task) => task.id !== currentLastTask.id);
 
     setTaskList(updatedList ?? []);
     setChangedAddBreakButton(false);
@@ -71,7 +71,10 @@ function TaskContainer(props) {
       setTitleChange(lastUpdatedTask.title ?? '');
       setMinutesChange(lastUpdatedTask.duration ?? 0);
       setTaskAdded(true);
-    } else { setHeadTitle(''); }
+    } else {
+      setCurrentTitle('');
+      setCurrentTask(null);
+    }
   }
 
   function handleGetTotalScheduleTime(minutes) {
@@ -144,6 +147,7 @@ function TaskContainer(props) {
   const list = taskList?.map((task) => (task.type === TASK_TYPES.TASK ? (
     <Task
       key={task}
+      currentTitle={currentTitle}
       handleMinutesChange={handleMinutesChange}
       handleOnDelete={deleteListItem}
       handleTaskTitleChange={handleTaskTitleChange}
@@ -205,6 +209,7 @@ function TaskContainer(props) {
         <AddTaskButton setChangedAddTaskButton={handleChangedAddTaskButton} />
       );
     }
+    setCurrentTitle(taskList[0].title);
     if (totalScheduleTime - totalTasksTime < SHORT_BREAK_MINUTES) {
       if (isRunning) {
         return <></>;
@@ -215,7 +220,6 @@ function TaskContainer(props) {
     }
 
     if (last(taskList).type === TASK_TYPES.BREAK) {
-      setHeadTitle(head(taskList).title);
       if (isRunning) {
         return <></>;
       }

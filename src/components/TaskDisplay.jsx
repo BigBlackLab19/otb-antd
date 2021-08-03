@@ -8,7 +8,7 @@ import styled from 'styled-components';
 
 function TaskDisplay(props) {
   const {
-    task, handleOnDelete, taskList, isPlayed,
+    task, handleOnDelete, taskList, isPlayed, handleCheck,
   } = props;
   const { title, duration } = task;
   const isLast = last(taskList).id === task.id;
@@ -20,7 +20,7 @@ function TaskDisplay(props) {
 
   return (
     <ParentContainer>
-      <CardContainer>
+      <CardContainer handleCheck={handleCheck()}>
         <Row>
           <Column span={12}>{title}</Column>
           <SelectMinutesColumn span={10}>
@@ -46,7 +46,7 @@ const ParentContainer = styled.div`
 const CardContainer = styled(Card)`
   height: 64px;
   padding-top: 4px;
-  background-color: #73c8fb;
+  background-color:${(props) => (props.handleCheck ? '#16a3f8' : '#73c8fb')};
   border: none;
 `;
 

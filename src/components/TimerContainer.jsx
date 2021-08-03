@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import Timer from './Timer';
 
 function TimerContainer(props) {
-  const { headTitle } = props;
+  const { currentTitle } = props;
 
   return (
     <ParentContainer>
@@ -15,7 +15,7 @@ function TimerContainer(props) {
         <h1>
           Task:
           {' '}
-          {headTitle}
+          {currentTitle}
         </h1>
       </CardContainer>
     </ParentContainer>
