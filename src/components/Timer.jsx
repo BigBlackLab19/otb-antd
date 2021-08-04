@@ -1,33 +1,30 @@
+import { Statistic } from 'antd';
+import { size } from 'lodash';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-function Timer() {
+import {
+  DEFAULT_TASK_MINUTES,
+} from '../constants/common';
+
+function Timer(props) {
+  const { currentTaskDuration } = props;
   const [timerMinute, setTimerMinute] = useState(0);
   const [timerSecond, setTimerSecond] = useState(0);
+  const { Countdown } = Statistic;
+  const targetTime = Date.now() + 1000 * 60 * currentTaskDuration;
 
-  function Time(number) {
-    if (number === 0) {
-      return '00';
-    }
-    if (number < 0) {
-      return `0${number}`;
+  function timeFormat() {
+    if (currentTaskDuration < 60) { 
+      return 'mm:ss';
     }
 
-    return number;
-  }
+    return 'HH:mm:ss';
+  } 
 
   return (
-    <Clock>
-      <span>{Time(timerMinute)}</span>
-      <span>:</span>
-      <span>{Time(timerSecond)}</span>
-    </Clock>
+    <Countdown format={timeFormat()} value={targetTime} valueStyle={{ color: '#16a3f8', fontSize: '5em' }} />
   );
 }
-
-const Clock = styled.div`
-  font-size: 5em;
-  color: #16a3f8;
-`;
 
 export default Timer;

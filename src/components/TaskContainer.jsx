@@ -25,7 +25,15 @@ import TimerInput from './TimerInput';
 
 function TaskContainer(props) {
   const {
-    setIsPlayable, currentTitle, isRunning, isPlayed, taskList, setTaskList, setCurrentTitle, setCurrentTask,
+    setIsPlayable, 
+    currentTitle, 
+    isRunning, 
+    isPlayed, 
+    taskList, 
+    setTaskList, 
+    setCurrentTitle, 
+    setCurrentTask, 
+    setCurrentTaskDuration,
   } = props;
   const [changedTimeInput, setChangedTimeInput] = useState(false);
   const [showBreakButton, setShowBreakButton] = useState(false);
@@ -169,7 +177,7 @@ function TaskContainer(props) {
       taskList={taskList}
     />
   )));
-
+  console.log('task', taskList);
   const timeInput = changedTimeInput ? (
     <TimerInput handleGetTotalScheduleTime={handleGetTotalScheduleTime} />
   ) : (
@@ -210,6 +218,7 @@ function TaskContainer(props) {
       );
     }
     setCurrentTitle(taskList[0].title);
+    setCurrentTaskDuration(taskList[0].duration);
     if (totalScheduleTime - totalTasksTime < SHORT_BREAK_MINUTES) {
       if (isRunning) {
         return <></>;

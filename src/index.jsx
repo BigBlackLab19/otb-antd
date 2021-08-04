@@ -5,6 +5,8 @@ import App from './App';
 import GlobalStyle from './styles';
 import 'antd/dist/antd.css';
 
+
+
 ReactDOM.render(
   <React.StrictMode>
     <GlobalStyle />

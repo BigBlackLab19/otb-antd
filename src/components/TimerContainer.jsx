@@ -6,12 +6,12 @@ import styled from 'styled-components';
 import Timer from './Timer';
 
 function TimerContainer(props) {
-  const { currentTitle } = props;
+  const { currentTitle, currentTaskDuration } = props;
 
   return (
     <ParentContainer>
       <CardContainer>
-        <Timer />
+        <Timer currentTaskDuration={currentTaskDuration} />
         <h1>
           Task:
           {' '}
@@ -31,7 +31,7 @@ const ParentContainer = styled.div`
 `;
 
 const CardContainer = styled(Card)`
-  width: 100%;
+  width: 80%;
   background-color: #f7f8fc;
   display: flex;
   justify-content: center;
