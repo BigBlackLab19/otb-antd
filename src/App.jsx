@@ -24,6 +24,7 @@ function App() {
   return (
     <>
       <InterruptModal
+        currentTitle={currentTitle}
         isOpen={isOpenInterruptModal}
         toggle={toggleInterruptModal}
       />
