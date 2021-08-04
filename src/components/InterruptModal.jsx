@@ -7,7 +7,7 @@ import styled from 'styled-components';
 const { TextArea } = Input;
 
 function InterruptModal(props) {
-  const { isOpen, toggle } = props;
+  const { isOpen, toggle, currentTitle } = props;
   const [reasoning, setReasoning] = useState('');
 
   function handleChangeReasoning(e) {
@@ -18,7 +18,7 @@ function InterruptModal(props) {
     <Modal
       closable={false}
       footer={null}
-      title="Current Task: {taskTitle} (Paused)"
+      title={`Current Task: ${currentTitle} (Paused)`}
       visible={isOpen}
     >
       <TextArea
