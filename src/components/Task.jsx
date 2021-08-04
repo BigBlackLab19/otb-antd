@@ -2,7 +2,7 @@
 import {
   Card, Row, Col, Input, Select,
 } from 'antd';
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import TaskDisplay from './TaskDisplay';
@@ -26,11 +26,17 @@ function Task(props) {
     totalTasksTime,
   } = props;
 
+  const [changeBackgroundClick, setChangeBackgroundClick] = useState(false);
   const timeValues = [25, 30, 35, 45, 50, 60, 75, 90];
   function handleCheck() {
-    if ((isRunning === true) && (currentTitle === task.title)) return true;
+    if ((!isRunning) && (currentTitle === task.title) && changeBackgroundClick) { return '#f8cbad'; }
+    if ((isRunning) && (currentTitle === task.title)) {
+      setChangeBackgroundClick(true);
 
-    return false;
+      return '#16a3f8';
+    }
+
+    return '#73c8fb';
   }
 
   const timeOptionsDisplay = timeValues.map((value) => {
@@ -91,8 +97,7 @@ const ParentContainer = styled.div`
 
 const CardContainer = styled(Card)`
   
-  background-color:${(props) => (props.handleCheck ? '#16a3f8' : '#73c8fb')};
-}; 
+  background-color:${(props) => (props.handleCheck)};
   border: none;
 `;
 

@@ -46,7 +46,7 @@ const ParentContainer = styled.div`
 const CardContainer = styled(Card)`
   height: 64px;
   padding-top: 4px;
-  background-color:${(props) => (props.handleCheck ? '#16a3f8' : '#73c8fb')};
+  background-color:${(props) => (props.handleCheck)};
   border: none;
 `;
 
