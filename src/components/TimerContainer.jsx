@@ -6,12 +6,19 @@ import styled from 'styled-components';
 import Timer from './Timer';
 
 function TimerContainer(props) {
-  const { currentTitle, currentTaskDuration } = props;
+  const {
+    currentTitle, currentTaskDuration, isRunning, changedAddBreakButton, showBreakButton,
+  } = props;
 
   return (
     <ParentContainer>
       <CardContainer>
-        <Timer currentTaskDuration={currentTaskDuration} />
+        <Timer
+          changedAddBreakButton={changedAddBreakButton}
+          currentTaskDuration={currentTaskDuration}
+          isRunning={isRunning}
+          showBreakButton={showBreakButton}
+        />
         <h1>
           Task:
           {' '}

@@ -25,19 +25,21 @@ import TimerInput from './TimerInput';
 
 function TaskContainer(props) {
   const {
-    setIsPlayable, 
-    currentTitle, 
-    isRunning, 
-    isPlayed, 
-    taskList, 
-    setTaskList, 
-    setCurrentTitle, 
-    setCurrentTask, 
+    setIsPlayable,
+    changedAddBreakButton,
+    currentTitle,
+    isRunning,
+    isPlayed,
+    taskList,
+    setTaskList,
+    setChangedAddBreakButton,
+    setCurrentTitle,
+    setCurrentTask,
     setCurrentTaskDuration,
+    setShowBreakButton,
+    showBreakButton,
   } = props;
   const [changedTimeInput, setChangedTimeInput] = useState(false);
-  const [showBreakButton, setShowBreakButton] = useState(false);
-  const [changedAddBreakButton, setChangedAddBreakButton] = useState(false);
   const [minutesChange, setMinutesChange] = useState(DEFAULT_TASK_MINUTES);
   const [titleChange, setTitleChange] = useState('');
   const [totalTasksTime, setTotalTasksTime] = useState(0);
@@ -177,7 +179,6 @@ function TaskContainer(props) {
       taskList={taskList}
     />
   )));
-  console.log('task', taskList);
   const timeInput = changedTimeInput ? (
     <TimerInput handleGetTotalScheduleTime={handleGetTotalScheduleTime} />
   ) : (
