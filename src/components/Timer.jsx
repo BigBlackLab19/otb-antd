@@ -20,7 +20,6 @@ function Timer(props) {
   const [seconds, setSeconds] = useState(INITIAL_SECONDS);
 
   useEffect(() => {
-    console.log('misnutessconds', minutes, seconds);
     if (seconds === 0) {
       if (minutes !== 0) {
         setSeconds(SECONDS_IN_MINUTES - 1);
@@ -31,7 +30,6 @@ function Timer(props) {
   }, [seconds]);
 
   useEffect(() => {
-    console.log('abreak', changedAddBreakButton);
     if (!changedAddBreakButton && minutes === 0) {
       setMinutes(currentTaskDuration);
     }
