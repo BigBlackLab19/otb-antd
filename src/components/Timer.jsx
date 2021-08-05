@@ -52,22 +52,25 @@ function Timer(props) {
     <div>
       { minutes === 0 && seconds === 0
         ? (
-          <h1>
-            00
-            :
-            00
-          </h1>
+          <Clock>
+            00:00
+          </Clock>
         )
         : (
-          <h1>
+          <Clock>
             {' '}
             {minutes}
             :
             {seconds < 10 ? `0${seconds}` : seconds}
-          </h1>
+          </Clock>
         )}
     </div>
   );
 }
 
 export default Timer;
+
+const Clock = styled.h1`
+  font-size: 5em;
+  color: #16a3f8;
+`;
