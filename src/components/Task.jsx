@@ -27,7 +27,7 @@ function Task(props) {
   } = props;
 
   const [changeBackgroundClick, setChangeBackgroundClick] = useState(false);
-  const timeValues = [25, 30, 35, 45, 50, 60, 75, 90];
+  const timeValues = [5, 25, 30, 35, 45, 50, 60, 75, 90];
   function handleCheck() {
     if ((!isRunning) && (currentTitle === task.title) && changeBackgroundClick) { return '#f8cbad'; }
     if ((isRunning) && (currentTitle === task.title)) {

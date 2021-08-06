@@ -10,7 +10,7 @@ import {
   INITIAL_SECONDS,
 } from '../constants/common';
 
-const SECONDS_IN_MINUTES = 60;
+const SECONDS_IN_MINUTES = 2;
 function Timer(props) {
   const {
     changedAddBreakButton, currentTaskDuration, isRunning, showBreakButton,
@@ -18,9 +18,11 @@ function Timer(props) {
 
   const [minutes, setMinutes] = useState(INITIAL_MINUTES);
   const [seconds, setSeconds] = useState(INITIAL_SECONDS);
+  const [isStarted, setIsStarted] = useState(false);
+  const [isCurrentTaskDone, setIsCurrentTaskDone] = useState(false);
 
   useEffect(() => {
-    if (seconds === 0) {
+    if (seconds === -1) {
       if (minutes !== 0) {
         setSeconds(SECONDS_IN_MINUTES - 1);
       }
@@ -30,15 +32,23 @@ function Timer(props) {
   }, [seconds]);
 
   useEffect(() => {
-    if (!changedAddBreakButton && minutes === 0) {
+    if (!changedAddBreakButton && minutes === 0 && !isStarted) {
+      console.log('changedadd', isStarted);
       setMinutes(currentTaskDuration);
+    } else if (minutes !== 0 && !isStarted) {
+      setIsStarted(true);
     }
     const myInterval = setInterval(() => {
       if (isRunning) {
-        if (seconds > 0) {
-          setSeconds(seconds - 1);
-        } else {
-          setSeconds(SECONDS_IN_MINUTES - 1);
+        if (seconds === 1 && minutes === 0 && isStarted) {
+          setIsCurrentTaskDone(true);
+        }
+        if (!isCurrentTaskDone) {
+          if (seconds > 0) {
+            setSeconds(seconds - 1);
+          } else {
+            setSeconds(SECONDS_IN_MINUTES - 1);
+          }
         }
       }
     }, 1000);
