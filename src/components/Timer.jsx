@@ -13,13 +13,12 @@ import {
 const SECONDS_IN_MINUTES = 2;
 function Timer(props) {
   const {
-    changedAddBreakButton, currentTaskDuration, isRunning, showBreakButton,
+    changedAddBreakButton, currentTaskDuration, isCurrentTaskDone, isRunning, showBreakButton, setIsCurrentTaskDone,
   } = props;
 
   const [minutes, setMinutes] = useState(INITIAL_MINUTES);
   const [seconds, setSeconds] = useState(INITIAL_SECONDS);
   const [isStarted, setIsStarted] = useState(false);
-  const [isCurrentTaskDone, setIsCurrentTaskDone] = useState(false);
 
   useEffect(() => {
     if (seconds === -1) {

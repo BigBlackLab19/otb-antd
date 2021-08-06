@@ -28,6 +28,7 @@ function TaskContainer(props) {
     setIsPlayable,
     changedAddBreakButton,
     currentTitle,
+    isCurrentTaskDone,
     isRunning,
     isPlayed,
     taskList,
@@ -161,6 +162,7 @@ function TaskContainer(props) {
       handleMinutesChange={handleMinutesChange}
       handleOnDelete={deleteListItem}
       handleTaskTitleChange={handleTaskTitleChange}
+      isCurrentTaskDone={isCurrentTaskDone}
       isPlayed={isPlayed}
       isRunning={isRunning}
       minutesChange={minutesChange}

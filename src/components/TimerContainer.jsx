@@ -7,7 +7,13 @@ import Timer from './Timer';
 
 function TimerContainer(props) {
   const {
-    currentTitle, currentTaskDuration, isRunning, changedAddBreakButton, showBreakButton,
+    currentTitle,
+    currentTaskDuration,
+    isCurrentTaskDone,
+    isRunning,
+    changedAddBreakButton,
+    setIsCurrentTaskDone,
+    showBreakButton,
   } = props;
 
   return (
@@ -16,7 +22,9 @@ function TimerContainer(props) {
         <Timer
           changedAddBreakButton={changedAddBreakButton}
           currentTaskDuration={currentTaskDuration}
+          isCurrentTaskDone={isCurrentTaskDone}
           isRunning={isRunning}
+          setIsCurrentTaskDone={setIsCurrentTaskDone}
           showBreakButton={showBreakButton}
         />
         <h1>

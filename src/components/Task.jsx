@@ -15,6 +15,7 @@ function Task(props) {
     handleMinutesChange,
     handleOnDelete,
     handleTaskTitleChange,
+    isCurrentTaskDone,
     isRunning,
     isPlayed,
     minutesChange,
@@ -29,13 +30,16 @@ function Task(props) {
   const [changeBackgroundClick, setChangeBackgroundClick] = useState(false);
   const timeValues = [5, 25, 30, 35, 45, 50, 60, 75, 90];
   function handleCheck() {
+    if ((isRunning) && isCurrentTaskDone) {
+      return '#c9c9c9';
+    }
     if ((!isRunning) && (currentTitle === task.title) && changeBackgroundClick) { return '#f8cbad'; }
     if ((isRunning) && (currentTitle === task.title)) {
       setChangeBackgroundClick(true);
 
       return '#16a3f8';
     }
-
+    
     return '#73c8fb';
   }
 

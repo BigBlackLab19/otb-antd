@@ -19,6 +19,7 @@ function App() {
   const [currentTaskDuration, setCurrentTaskDuration] = useState(0);
   const [seconds, setSeconds] = React.useState(10);
   const [showBreakButton, setShowBreakButton] = useState(false);
+  const [isCurrentTaskDone, setIsCurrentTaskDone] = useState(false);
 
   React.useEffect(() => {
     if (seconds > 0) {
@@ -44,8 +45,11 @@ function App() {
         changedAddBreakButton={changedAddBreakButton}
         currentTaskDuration={currentTaskDuration}
         currentTitle={currentTitle}
+        isCurrentTaskDone={isCurrentTaskDone}
         isRunning={isRunning}
+        setIsCurrentTaskDone={setIsCurrentTaskDone}
         showBreakButton={showBreakButton}
+
       />
       <PlayPauseButton
         isPlayable={isPlayable}
@@ -58,6 +62,7 @@ function App() {
       <TaskContainer
         changedAddBreakButton={changedAddBreakButton}
         currentTitle={currentTitle}
+        isCurrentTaskDone={isCurrentTaskDone}
         isPlayed={isPlayed}
         isRunning={isRunning}
         setChangedAddBreakButton={setChangedAddBreakButton}
